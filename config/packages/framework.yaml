@@ -4,3 +4,4 @@ framework:
     handle_all_throwables: true
     php_errors:
         log: true
+    error_controller: 'App\Controller\ErrorController::show'

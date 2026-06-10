@@ -9,20 +9,26 @@
 parameters:
 
 services:
-    App\Service\AssociationApiService:
-        arguments:
-            $httpClient: '@http_client'
-            $apiUrl: '%env(ASSOCIATION_API_URL)%'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind: 
+            $apiUrl: '%env(ASSOCIATION_API_URL)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
 
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\AssociationApiService:
+        arguments:
+            $httpClient: '@http_client'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

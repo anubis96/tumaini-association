@@ -1,0 +1,39 @@
+{# templates/bundles/TwigBundle/Exception/error403.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès interdit - 403{% endblock %}
+
+{% block body %}
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/6 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse-soft"></div>
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(26,42,79,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(26,42,79,0.5) 1px,transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-8 animate-float">
+            <div class="text-9xl sm:text-9xl font-display font-bold gradient-text">403</div>
+        </div>
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/40 bg-red-900/30 text-red-300 text-xs font-semibold tracking-widest uppercase mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+            Accès interdit
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold mb-4">
+            Accès non autorisé
+        </h1>
+        
+        <p class="text-primary-300 text-lg leading-relaxed mb-10 max-w-lg mx-auto">
+            Vous n'avez pas les permissions nécessaires pour accéder à cette page.
+            Veuillez vous connecter avec un compte approprié.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{{ path('app_home') }}" class="btn-shine bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold px-8 py-4 rounded-xl shadow-2xl shadow-primary-900/50 transition-all hover:scale-105 inline-flex items-center gap-2">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

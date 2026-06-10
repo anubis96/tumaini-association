@@ -1,0 +1,64 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée - 404{% endblock %}
+
+{% block body %}
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/6 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-soft"></div>
+        <div class="absolute bottom-1/4 right-1/6 w-80 h-80 bg-secondary-500/8 rounded-full blur-3xl animate-pulse-soft" style="animation-delay:1.5s"></div>
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(26,42,79,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(26,42,79,0.5) 1px,transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-8 animate-float">
+            <div class="text-9xl sm:text-9xl font-display font-bold gradient-text">404</div>
+        </div>
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-500/40 bg-primary-900/30 text-primary-300 text-xs font-semibold tracking-widest uppercase mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse"></span>
+            Page introuvable
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold mb-4">
+            Oups ! Cette page s'est envolée
+        </h1>
+        
+        <p class="text-primary-300 text-lg leading-relaxed mb-10 max-w-lg mx-auto">
+            La page que vous cherchez n'existe pas ou a été déplacée. 
+            Vérifiez l'URL ou retournez à l'accueil.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{{ path('app_home') }}" class="btn-shine bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold px-8 py-4 rounded-xl shadow-2xl shadow-primary-900/50 transition-all hover:scale-105 inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                Retour à l'accueil
+            </a>
+            <a href="{{ path('app_contact') }}" class="border border-primary-500/40 text-primary-300 hover:bg-primary-800/30 font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                Nous contacter
+            </a>
+        </div>
+
+        <!-- Liens utiles -->
+        <div class="mt-16 pt-8 border-t border-primary-800/50">
+            <p class="text-primary-400 text-sm mb-4">Vous pouvez aussi essayer :</p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm">
+                <a href="{{ path('app_activites') }}" class="text-primary-300 hover:text-primary-200 transition-colors">Nos activités</a>
+                <span class="text-primary-600">•</span>
+                <a href="{{ path('app_offres') }}" class="text-primary-300 hover:text-primary-200 transition-colors">Offres d'emploi</a>
+                <span class="text-primary-600">•</span>
+                <a href="{{ path('app_membres') }}" class="text-primary-300 hover:text-primary-200 transition-colors">Notre équipe</a>
+                <span class="text-primary-600">•</span>
+                <a href="{{ path('app_about') }}" class="text-primary-300 hover:text-primary-200 transition-colors">À propos</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

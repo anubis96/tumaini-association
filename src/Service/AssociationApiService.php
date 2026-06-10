@@ -9,7 +9,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AssociationApiService
 {
-    // private const BASE_URL = 'https://votre-projet-symfony.com/api/association';
     private string $baseUrl;
     
     public function __construct(
@@ -188,7 +187,7 @@ class AssociationApiService
     {
         return [
             'id' => $data['id'] ?? null,
-            'titre' => $data['titre'] ?? '',
+            'titre' => $data['title'] ?? '',
             'description' => $data['description'] ?? '',
             'resume' => $data['resume'] ?? '',
             'date' => $data['date'] ?? '',
