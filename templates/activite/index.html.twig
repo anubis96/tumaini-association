@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+{% block title %}Activités — MTU asbl{% endblock %}
+
+{% block body %}
+
+<!-- Page Header -->
+<section class="relative pt-32 pb-20 overflow-hidden" style="background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(217,119,6,0.12) 0%, transparent 70%), #0a0704;">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(251,191,36,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(251,191,36,0.5) 1px,transparent 1px); background-size: 60px 60px;"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-2xl">
+            <div class="flex items-center gap-2 mb-4">
+                <a href="{{ path('app_home') }}" class="text-amber-700 hover:text-amber-500 text-sm transition-colors">Accueil</a>
+                <span class="text-amber-800">/</span>
+                <span class="text-amber-400 text-sm">Activités</span>
+            </div>
+            <h1 class="font-display text-5xl sm:text-6xl text-amber-100 font-bold mb-4">Nos Activités</h1>
+            <p class="text-amber-600 text-lg leading-relaxed">
+                Découvrez l'ensemble de nos programmes et initiatives pour le développement et la paix au Sud-Kivu.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Filters + Grid -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Status filter tabs -->
+        <div class="flex flex-wrap gap-3 mb-12" id="filter-tabs">
+            <button onclick="filterCards('all')" data-filter="all" class="filter-btn active-filter px-5 py-2 rounded-full text-sm font-medium transition-all bg-gradient-to-r from-amber-600 to-orange-500 text-white">
+                Toutes ({{ activites|length }})
+            </button>
+            <button onclick="filterCards('en_cours')" data-filter="en_cours" class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all border border-amber-800/40 text-amber-600 hover:border-amber-500 hover:text-amber-400">
+                En cours
+            </button>
+            <button onclick="filterCards('planifie')" data-filter="planifie" class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all border border-amber-800/40 text-amber-600 hover:border-amber-500 hover:text-amber-400">
+                Planifiées
+            </button>
+            <button onclick="filterCards('termine')" data-filter="termine" class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all border border-amber-800/40 text-amber-600 hover:border-amber-500 hover:text-amber-400">
+                Terminées
+            </button>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="cards-grid">
+            {% for activite in activites %}
+            <div class="card-item" data-status="{{ activite.status }}">
+                <a href="{{ path('app_activite_show', {id: activite.id}) }}" class="reveal card-hover group block bg-gradient-to-b from-[#160e05] to-[#100a03] border border-amber-900/30 hover:border-amber-700/40 rounded-2xl overflow-hidden h-full">
+
+                    <!-- Header with icon -->
+                    <div class="relative h-52 bg-gradient-to-br from-amber-900/30 via-orange-950/50 to-[#100a03] flex items-center justify-center">
+                        <div class="text-8xl group-hover:scale-110 transition-transform duration-500">{{ activite.image_icon }}</div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#100a03] via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="badge-{{ activite.status }} text-xs font-semibold px-3 py-1.5 rounded-full">
+                                {% if activite.status == 'en_cours' %}● En cours
+                                {% elseif activite.status == 'termine' %}✓ Terminé
+                                {% else %}◷ Planifié{% endif %}
+                            </span>
+                        </div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-amber-900/50 border border-amber-800/30 text-amber-400 text-xs px-3 py-1 rounded-full">{{ activite.categorie }}</span>
+                        </div>
+                    </div>
+
+                    <div class="p-7">
+                        <h3 class="font-display text-amber-100 text-xl font-bold mb-3 group-hover:text-amber-300 transition-colors leading-snug">
+                            {{ activite.titre }}
+                        </h3>
+                        <p class="text-amber-700 text-sm leading-relaxed mb-6 line-clamp-3">{{ activite.description }}</p>
+
+                        <!-- Info grid -->
+                        <div class="grid grid-cols-2 gap-3 mb-6">
+                            <div class="bg-amber-900/15 rounded-xl p-3">
+                                <div class="text-amber-600 text-xs mb-1">📍 Lieu</div>
+                                <div class="text-amber-300 text-xs font-medium line-clamp-1">{{ activite.lieu|split(',')[0] }}</div>
+                            </div>
+                            <div class="bg-amber-900/15 rounded-xl p-3">
+                                <div class="text-amber-600 text-xs mb-1">👥 Participants</div>
+                                <div class="text-amber-300 text-xs font-medium">{{ activite.participants }}</div>
+                            </div>
+                            <div class="bg-amber-900/15 rounded-xl p-3">
+                                <div class="text-amber-600 text-xs mb-1">📅 Date</div>
+                                <div class="text-amber-300 text-xs font-medium">{{ activite.date }}</div>
+                            </div>
+                            <div class="bg-amber-900/15 rounded-xl p-3">
+                                <div class="text-amber-600 text-xs mb-1">🎯 Impact</div>
+                                <div class="text-amber-300 text-xs font-medium line-clamp-1">{{ activite.beneficiaires }}</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-amber-900/20">
+                            <span class="text-amber-500 text-sm font-medium group-hover:text-amber-400 transition-colors">Lire la suite</span>
+                            <div class="w-9 h-9 rounded-xl bg-amber-900/30 group-hover:bg-amber-800/50 flex items-center justify-center group-hover:translate-x-1 transition-all">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function filterCards(status) {
+    // Update button styles
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        if(btn.dataset.filter === status) {
+            btn.className = 'filter-btn active-filter px-5 py-2 rounded-full text-sm font-medium transition-all bg-gradient-to-r from-amber-600 to-orange-500 text-white';
+        } else {
+            btn.className = 'filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all border border-amber-800/40 text-amber-600 hover:border-amber-500 hover:text-amber-400';
+        }
+    });
+    // Filter cards
+    document.querySelectorAll('.card-item').forEach(card => {
+        if(status === 'all' || card.dataset.status === status) {
+            card.style.display = '';
+            setTimeout(() => card.style.opacity = '1', 10);
+        } else {
+            card.style.opacity = '0';
+            setTimeout(() => card.style.display = 'none', 300);
+        }
+    });
+}
+</script>
+{% endblock %}

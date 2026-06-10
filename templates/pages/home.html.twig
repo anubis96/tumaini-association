@@ -1,0 +1,338 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MTU asbl — Mwanadamu Tumaini | Paix & Développement au Sud-Kivu{% endblock %}
+
+{% block body %}
+
+<!-- ==================== HERO SECTION ==================== -->
+<section class="hero-bg noise-overlay relative min-h-screen flex items-center overflow-hidden">
+
+    <!-- Animated background orbs -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/6 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl animate-pulse-soft"></div>
+        <div class="absolute bottom-1/4 right-1/6 w-80 h-80 bg-orange-500/8 rounded-full blur-3xl animate-pulse-soft" style="animation-delay:1.5s"></div>
+        <div class="absolute top-3/4 left-1/2 w-64 h-64 bg-amber-400/6 rounded-full blur-2xl animate-pulse-soft" style="animation-delay:3s"></div>
+        <!-- Grid pattern -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(251,191,36,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(251,191,36,0.5) 1px,transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+            <!-- Text Content -->
+            <div>
+                <!-- Eyebrow label -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-700/40 bg-amber-900/20 text-amber-400 text-xs font-semibold tracking-widest uppercase mb-8 animate-slide-in">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    République Démocratique du Congo — Sud-Kivu
+                </div>
+
+                <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6" style="animation: fadeUp 0.8s ease forwards">
+                    <span class="text-amber-50">Humanité,</span><br>
+                    <span class="gradient-text">Espoir &</span><br>
+                    <span class="text-amber-100">Développement</span>
+                </h1>
+
+                <p class="text-amber-300/70 text-lg leading-relaxed mb-10 max-w-lg" style="animation: fadeUp 0.8s 0.2s ease both">
+                    <strong class="text-amber-400">MWANADAMU TUMAINI</strong> milite pour la consolidation de la paix et le développement endogène des communautés rurales et urbaines de la province du Sud-Kivu.
+                </p>
+
+                <div class="flex flex-wrap gap-4" style="animation: fadeUp 0.8s 0.4s ease both">
+                    <a href="{{ path('app_activites') }}" class="btn-shine group inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white font-semibold px-8 py-4 rounded-xl shadow-2xl shadow-amber-900/50 transition-all duration-300 hover:scale-105">
+                        <span>Nos Activités</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    <a href="{{ path('app_about') }}" class="inline-flex items-center gap-3 border border-amber-700/50 text-amber-300 hover:bg-amber-900/30 hover:border-amber-500 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105">
+                        Qui sommes-nous ?
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="flex gap-8 mt-14" style="animation: fadeUp 0.8s 0.6s ease both">
+                    <div>
+                        <div class="gradient-text font-display text-3xl font-bold">9+</div>
+                        <div class="text-amber-700 text-xs uppercase tracking-wide mt-1">Années d'action</div>
+                    </div>
+                    <div class="border-l border-amber-900/40 pl-8">
+                        <div class="gradient-text font-display text-3xl font-bold">2000+</div>
+                        <div class="text-amber-700 text-xs uppercase tracking-wide mt-1">Bénéficiaires</div>
+                    </div>
+                    <div class="border-l border-amber-900/40 pl-8">
+                        <div class="gradient-text font-display text-3xl font-bold">6</div>
+                        <div class="text-amber-700 text-xs uppercase tracking-wide mt-1">Domaines d'action</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Element -->
+            <div class="relative hidden lg:block" style="animation: fadeUp 0.8s 0.3s ease both">
+                <div class="relative w-full aspect-square max-w-lg mx-auto">
+                    <!-- Main circle -->
+                    <div class="absolute inset-0 rounded-full border border-amber-700/20 animate-[spin_20s_linear_infinite]"></div>
+                    <div class="absolute inset-8 rounded-full border border-orange-600/15 animate-[spin_15s_linear_infinite_reverse]"></div>
+
+                    <!-- Central hexagon card -->
+                    <div class="absolute inset-16 rounded-3xl bg-gradient-to-br from-amber-900/40 to-orange-950/60 border border-amber-700/30 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
+                        <div class="text-6xl mb-4 animate-float">🕊️</div>
+                        <div class="font-display text-amber-300 text-xl font-bold mb-2">MTU asbl</div>
+                        <div class="text-amber-600 text-xs uppercase tracking-widest">Uvira · Sud-Kivu</div>
+                        <div class="mt-4 text-amber-700 text-xs leading-relaxed">
+                            « Humanité &amp; Espoir »
+                        </div>
+                    </div>
+
+                    <!-- Floating domain badges -->
+                    <div class="absolute top-6 left-1/2 -translate-x-1/2 -translate-y-2 bg-[#1a0f05] border border-amber-800/40 rounded-xl px-4 py-2 text-xs text-amber-400 font-medium animate-float" style="animation-delay:0s">📚 Éducation</div>
+                    <div class="absolute right-0 top-1/3 bg-[#1a0f05] border border-orange-800/40 rounded-xl px-4 py-2 text-xs text-orange-400 font-medium animate-float" style="animation-delay:0.8s">🏥 Santé</div>
+                    <div class="absolute bottom-6 right-1/4 bg-[#1a0f05] border border-amber-800/40 rounded-xl px-4 py-2 text-xs text-amber-400 font-medium animate-float" style="animation-delay:1.6s">🌱 Agriculture</div>
+                    <div class="absolute left-0 top-1/2 bg-[#1a0f05] border border-orange-800/40 rounded-xl px-4 py-2 text-xs text-orange-400 font-medium animate-float" style="animation-delay:2.4s">🛡️ Protection</div>
+                    <div class="absolute bottom-12 left-1/4 bg-[#1a0f05] border border-amber-800/40 rounded-xl px-4 py-2 text-xs text-amber-400 font-medium animate-float" style="animation-delay:1.2s">💧 Hygiène</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom wave -->
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#0a0704"/>
+        </svg>
+    </div>
+</section>
+
+
+<!-- ==================== MISSION BANNER ==================== -->
+<section class="py-12 bg-gradient-to-r from-amber-950 via-[#1a0c03] to-orange-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            {% set domains = [
+                {icon: '📚', label: 'Éducation & Info'},
+                {icon: '🛡️', label: 'Protection'},
+                {icon: '🌱', label: 'Agriculture'},
+                {icon: '🏥', label: 'Santé'},
+                {icon: '💧', label: 'Hygiène'}
+            ] %}
+            {% for domain in domains %}
+            <div class="flex items-center gap-3 reveal">
+                <span class="text-2xl">{{ domain.icon }}</span>
+                <span class="text-amber-300 text-sm font-medium">{{ domain.label }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== ACTIVITÉS SECTION ==================== -->
+<section class="py-24 relative">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
+            <div class="reveal">
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+                    <span class="text-orange-400 text-xs font-semibold uppercase tracking-widest">Nos Actions</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold">Activités en cours</h2>
+                <p class="text-amber-700 mt-3 max-w-md">Découvrez nos programmes qui transforment les communautés du Sud-Kivu.</p>
+            </div>
+            <a href="{{ path('app_activites') }}" class="reveal btn-shine flex-shrink-0 inline-flex items-center gap-2 border border-amber-700/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:bg-amber-900/20">
+                Voir toutes
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for activite in activites %}
+            <a href="{{ path('app_activite_show', {id: activite.id}) }}" class="reveal card-hover group block bg-gradient-to-b from-[#140d05] to-[#0f0903] border border-amber-900/30 hover:border-amber-700/50 rounded-2xl overflow-hidden">
+
+                <!-- Card Header -->
+                <div class="relative h-48 bg-gradient-to-br from-amber-900/40 via-orange-950/60 to-[#0f0903] flex items-center justify-center overflow-hidden">
+                    <div class="text-7xl group-hover:scale-110 transition-transform duration-300">{{ activite.image_icon }}</div>
+                    <!-- Glow -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0903] via-transparent to-transparent"></div>
+                    <!-- Status badge -->
+                    <div class="absolute top-4 right-4">
+                        <span class="badge-{{ activite.status }} text-xs font-semibold px-3 py-1 rounded-full">
+                            {% if activite.status == 'en_cours' %}● En cours
+                            {% elseif activite.status == 'termine' %}✓ Terminé
+                            {% else %}◷ Planifié{% endif %}
+                        </span>
+                    </div>
+                    <!-- Category -->
+                    <div class="absolute top-4 left-4 bg-amber-900/50 border border-amber-800/40 text-amber-400 text-xs px-3 py-1 rounded-full">
+                        {{ activite.categorie }}
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-6">
+                    <h3 class="font-display text-amber-100 font-bold text-lg mb-3 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                        {{ activite.titre }}
+                    </h3>
+                    <p class="text-amber-700 text-sm leading-relaxed mb-5 line-clamp-2">{{ activite.resume }}</p>
+
+                    <!-- Meta info -->
+                    <div class="flex items-center justify-between text-xs text-amber-800">
+                        <div class="flex items-center gap-1.5">
+                            <span>📍</span> {{ activite.lieu|split(',')[0] }}
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span>👥</span> {{ activite.participants }} participants
+                        </div>
+                    </div>
+
+                    <!-- Read more arrow -->
+                    <div class="mt-5 pt-4 border-t border-amber-900/20 flex items-center justify-between">
+                        <span class="text-amber-500 text-xs font-medium group-hover:text-amber-400 transition-colors">Lire la suite</span>
+                        <div class="w-8 h-8 rounded-lg bg-amber-900/30 group-hover:bg-amber-800/40 flex items-center justify-center transition-all group-hover:translate-x-1">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== OFFRES SECTION ==================== -->
+<section class="py-24 bg-gradient-to-b from-[#0a0704] via-[#0e0905] to-[#0a0704] relative">
+    <div class="section-divider mb-24 -mt-24"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
+            <div class="reveal">
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-0.5 bg-gradient-to-r from-orange-500 to-amber-500"></div>
+                    <span class="text-amber-400 text-xs font-semibold uppercase tracking-widest">Rejoignez-nous</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold">Offres d'emploi</h2>
+                <p class="text-amber-700 mt-3 max-w-md">Participez à notre mission — faites partie du changement.</p>
+            </div>
+            <a href="{{ path('app_offres') }}" class="reveal btn-shine flex-shrink-0 inline-flex items-center gap-2 border border-amber-700/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:bg-amber-900/20">
+                Toutes les offres
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for offre in offres %}
+            <a href="{{ path('app_offre_show', {id: offre.id}) }}" class="reveal card-hover group block bg-[#120c04] border border-amber-900/30 hover:border-orange-700/40 rounded-2xl p-6 transition-all">
+                <div class="flex items-start justify-between mb-5">
+                    <div class="text-4xl">{{ offre.icon }}</div>
+                    <span class="badge-{{ offre.statut }} text-xs font-semibold px-3 py-1 rounded-full">
+                        {% if offre.statut == 'ouvert' %}🟢 Ouvert{% else %}🔴 Fermé{% endif %}
+                    </span>
+                </div>
+                <h3 class="font-display text-amber-100 font-bold text-lg mb-2 group-hover:text-amber-300 transition-colors leading-snug line-clamp-2">
+                    {{ offre.titre }}
+                </h3>
+                <p class="text-amber-700 text-sm mb-5 line-clamp-2">{{ offre.resume }}</p>
+
+                <div class="space-y-2 mb-5">
+                    <div class="flex items-center gap-2 text-xs text-amber-800">
+                        <span>💼</span> {{ offre.type }}
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-amber-800">
+                        <span>📍</span> {{ offre.lieu }}
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-amber-800">
+                        <span>⏰</span> Limite : {{ offre.date_limite }}
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-amber-900/20 flex items-center justify-between">
+                    <span class="text-xs text-orange-500 font-medium group-hover:text-orange-400">Voir l'offre</span>
+                    <div class="w-8 h-8 rounded-lg bg-orange-900/30 group-hover:bg-orange-800/40 flex items-center justify-center group-hover:translate-x-1 transition-all">
+                        <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== MEMBRES SECTION ==================== -->
+<section class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
+            <div class="reveal">
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+                    <span class="text-orange-400 text-xs font-semibold uppercase tracking-widest">Notre équipe</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold">Les membres</h2>
+                <p class="text-amber-700 mt-3 max-w-md">Des professionnels engagés au service des communautés.</p>
+            </div>
+            <a href="{{ path('app_membres') }}" class="reveal btn-shine flex-shrink-0 inline-flex items-center gap-2 border border-amber-700/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:bg-amber-900/20">
+                Tous les membres
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {% for membre in membres %}
+            <div class="reveal card-hover group bg-[#120c04] border border-amber-900/30 hover:border-amber-700/40 rounded-2xl p-6 text-center">
+                <!-- Avatar -->
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br {{ membre.couleur }} flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                    {{ membre.initiales }}
+                </div>
+                <h3 class="text-amber-200 font-semibold text-sm mb-1 line-clamp-1">{{ membre.nom }}</h3>
+                <p class="text-amber-600 text-xs mb-3">{{ membre.poste }}</p>
+                <div class="inline-block bg-amber-900/20 text-amber-700 text-xs px-3 py-1 rounded-full">
+                    Depuis {{ membre.anciennete }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== CTA SECTION ==================== -->
+<section class="py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="reveal relative bg-gradient-to-br from-amber-900/30 via-orange-950/40 to-amber-900/20 border border-amber-700/30 rounded-3xl p-14 overflow-hidden">
+            <!-- Background decoration -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-0 left-1/4 w-48 h-48 bg-amber-600/10 rounded-full blur-2xl"></div>
+                <div class="absolute bottom-0 right-1/4 w-48 h-48 bg-orange-500/10 rounded-full blur-2xl"></div>
+            </div>
+            <div class="relative z-10">
+                <div class="text-5xl mb-6 animate-float">🌍</div>
+                <h2 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold mb-4">
+                    Rejoignez notre mission
+                </h2>
+                <p class="text-amber-400/80 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Ensemble, bâtissons un avenir de paix et de prospérité pour les communautés du Sud-Kivu. Chaque contribution compte.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ path('app_contact') }}" class="btn-shine bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white font-bold px-10 py-4 rounded-xl shadow-2xl shadow-amber-900/50 transition-all hover:scale-105">
+                        Nous contacter
+                    </a>
+                    <a href="{{ path('app_offres') }}" class="border border-amber-700/50 text-amber-300 hover:bg-amber-900/30 font-semibold px-10 py-4 rounded-xl transition-all hover:scale-105">
+                        Voir les offres
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

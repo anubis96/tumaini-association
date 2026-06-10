@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+{% block title %}Offres d'emploi — MTU asbl{% endblock %}
+
+{% block body %}
+
+<!-- Page Header -->
+<section class="relative pt-32 pb-20 overflow-hidden" style="background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249,115,22,0.1) 0%, transparent 70%), #0a0704;">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(251,191,36,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(251,191,36,0.5) 1px,transparent 1px); background-size: 60px 60px;"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex items-center gap-2 mb-4 text-sm">
+            <a href="{{ path('app_home') }}" class="text-amber-700 hover:text-amber-500 transition-colors">Accueil</a>
+            <span class="text-amber-800">/</span>
+            <span class="text-amber-400">Offres d'emploi</span>
+        </div>
+        <h1 class="font-display text-5xl sm:text-6xl text-amber-100 font-bold mb-4">Offres d'emploi</h1>
+        <p class="text-amber-600 text-lg max-w-xl">Rejoignez MTU asbl et contribuez à la paix et au développement au Sud-Kivu.</p>
+    </div>
+</section>
+
+<!-- Offres list -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Stats banner -->
+        <div class="grid grid-cols-3 gap-4 mb-14 p-6 bg-[#120c04] border border-amber-900/20 rounded-2xl reveal">
+            <div class="text-center">
+                <div class="gradient-text font-display text-3xl font-bold">{{ offres|length }}</div>
+                <div class="text-amber-700 text-xs uppercase tracking-wide mt-1">Offres totales</div>
+            </div>
+            <div class="text-center border-x border-amber-900/20">
+                <div class="gradient-text font-display text-3xl font-bold">{{ offres|filter(o => o.statut == 'ouvert')|length }}</div>
+                <div class="text-amber-700 text-xs uppercase tracking-wide mt-1">Postes ouverts</div>
+            </div>
+            <div class="text-center">
+                <div class="gradient-text font-display text-3xl font-bold">{{ offres|filter(o => o.type == 'Stage')|length }}</div>
+                <div class="text-amber-700 text-xs uppercase tracking-wide mt-1">Stages</div>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="space-y-6">
+            {% for offre in offres %}
+            <a href="{{ path('app_offre_show', {id: offre.id}) }}" class="reveal card-hover group block bg-[#120c04] border border-amber-900/30 hover:border-orange-700/40 rounded-2xl p-8 transition-all">
+                <div class="flex flex-col sm:flex-row gap-6 items-start">
+
+                    <!-- Icon -->
+                    <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-900/50 to-orange-950/70 border border-amber-800/30 flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">
+                        {{ offre.icon }}
+                    </div>
+
+                    <!-- Main info -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-display text-amber-100 text-xl font-bold group-hover:text-amber-300 transition-colors">{{ offre.titre }}</h3>
+                            <span class="badge-{{ offre.statut }} text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0">
+                                {% if offre.statut == 'ouvert' %}🟢 Ouvert{% else %}🔴 Fermé{% endif %}
+                            </span>
+                        </div>
+                        <p class="text-amber-600 text-sm mb-5 leading-relaxed">{{ offre.resume }}</p>
+
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            {% for comp in offre.competences %}
+                            <span class="bg-amber-900/25 border border-amber-800/30 text-amber-500 text-xs px-3 py-1 rounded-full">{{ comp }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Meta row -->
+                        <div class="flex flex-wrap gap-6 text-xs text-amber-700">
+                            <span class="flex items-center gap-1.5">💼 {{ offre.type }}</span>
+                            <span class="flex items-center gap-1.5">📍 {{ offre.lieu }}</span>
+                            <span class="flex items-center gap-1.5">🎓 {{ offre.formation }}</span>
+                            <span class="flex items-center gap-1.5">⏰ Limite : <strong class="text-amber-600">{{ offre.date_limite }}</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flex-shrink-0 hidden sm:flex">
+                        <div class="w-12 h-12 rounded-xl bg-amber-900/30 group-hover:bg-orange-800/40 flex items-center justify-center group-hover:translate-x-1 transition-all">
+                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

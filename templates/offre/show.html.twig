@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ offre.titre }} — MTU asbl{% endblock %}
+
+{% block body %}
+
+<section class="relative pt-32 pb-0 overflow-hidden" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.12) 0%, transparent 70%), #0a0704;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2 mb-8 text-sm flex-wrap">
+            <a href="{{ path('app_home') }}" class="text-amber-700 hover:text-amber-500">Accueil</a>
+            <span class="text-amber-800">/</span>
+            <a href="{{ path('app_offres') }}" class="text-amber-700 hover:text-amber-500">Offres</a>
+            <span class="text-amber-800">/</span>
+            <span class="text-amber-500 line-clamp-1">{{ offre.titre[:40] }}...</span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-10 items-start pb-16">
+            <div class="flex-1">
+                <div class="flex flex-wrap gap-3 mb-5">
+                    <span class="bg-orange-900/40 border border-orange-800/40 text-orange-400 text-xs px-3 py-1.5 rounded-full">{{ offre.type }}</span>
+                    <span class="badge-{{ offre.statut }} text-xs font-semibold px-3 py-1.5 rounded-full">
+                        {% if offre.statut == 'ouvert' %}🟢 Poste Ouvert{% else %}🔴 Poste Fermé{% endif %}
+                    </span>
+                </div>
+                <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl text-amber-100 font-bold leading-tight mb-5">
+                    {{ offre.titre }}
+                </h1>
+                <p class="text-amber-500 text-lg leading-relaxed">{{ offre.resume }}</p>
+            </div>
+            <div class="flex-shrink-0 w-28 h-28 rounded-3xl bg-gradient-to-br from-orange-900/40 to-amber-950/60 border border-orange-800/30 flex items-center justify-center text-7xl shadow-xl animate-float">
+                {{ offre.icon }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-3 gap-12">
+
+            <!-- Description -->
+            <div class="lg:col-span-2 space-y-8 reveal">
+                <div>
+                    <h2 class="font-display text-2xl text-amber-200 font-bold mb-5 flex items-center gap-3">
+                        <span class="w-8 h-0.5 bg-gradient-to-r from-orange-500 to-amber-500 inline-block"></span>
+                        Description du poste
+                    </h2>
+                    <div class="bg-[#130d04] border border-amber-900/20 rounded-2xl p-8 text-amber-600 leading-relaxed">
+                        {{ offre.description }}
+                    </div>
+                </div>
+
+                <!-- Compétences -->
+                <div>
+                    <h3 class="font-display text-xl text-amber-200 font-bold mb-5">Compétences requises</h3>
+                    <div class="flex flex-wrap gap-3">
+                        {% for comp in offre.competences %}
+                        <span class="bg-gradient-to-r from-amber-900/30 to-orange-900/20 border border-amber-800/30 text-amber-400 px-5 py-2.5 rounded-xl text-sm font-medium">
+                            ✦ {{ comp }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Formation -->
+                <div class="bg-gradient-to-br from-orange-900/20 to-amber-950/20 border border-orange-900/20 rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-2xl">🎓</span>
+                        <h3 class="text-amber-300 font-semibold">Formation requise</h3>
+                    </div>
+                    <p class="text-amber-600 text-sm">{{ offre.formation }}</p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-5 reveal">
+                <!-- Fiche résumé -->
+                <div class="bg-[#130d04] border border-amber-900/30 rounded-2xl p-6">
+                    <h3 class="text-amber-300 font-semibold text-sm uppercase tracking-wide mb-5">Fiche du poste</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="text-amber-700 text-xs mb-1">Type de contrat</div>
+                            <div class="text-amber-300 text-sm font-medium">{{ offre.type }}</div>
+                        </div>
+                        <div class="border-t border-amber-900/20"></div>
+                        <div>
+                            <div class="text-amber-700 text-xs mb-1">Lieu de travail</div>
+                            <div class="text-amber-300 text-sm font-medium">{{ offre.lieu }}</div>
+                        </div>
+                        <div class="border-t border-amber-900/20"></div>
+                        <div>
+                            <div class="text-amber-700 text-xs mb-1">Expérience</div>
+                            <div class="text-amber-300 text-sm font-medium">{{ offre.experience }}</div>
+                        </div>
+                        <div class="border-t border-amber-900/20"></div>
+                        <div>
+                            <div class="text-amber-700 text-xs mb-1">Date limite</div>
+                            <div class="text-orange-400 text-sm font-bold">{{ offre.date_limite }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if offre.statut == 'ouvert' %}
+                <a href="{{ path('app_contact') }}" class="btn-shine w-full block bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-bold py-4 rounded-xl text-center shadow-xl shadow-orange-900/40 transition-all hover:scale-105">
+                    Postuler maintenant
+                </a>
+                {% else %}
+                <div class="w-full bg-red-950/30 border border-red-900/30 text-red-400 py-4 rounded-xl text-center text-sm font-medium">
+                    Ce poste est fermé
+                </div>
+                {% endif %}
+
+                <a href="{{ path('app_offres') }}" class="w-full block border border-amber-800/40 hover:border-amber-600 text-amber-500 hover:text-amber-400 py-3 rounded-xl text-center text-sm transition-all hover:bg-amber-900/20">
+                    ← Toutes les offres
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other offres -->
+{% if autres %}
+<section class="py-12 border-t border-amber-900/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-2xl text-amber-200 font-bold mb-8">Autres offres</h2>
+        <div class="grid md:grid-cols-3 gap-5">
+            {% for o in autres %}
+            <a href="{{ path('app_offre_show', {id: o.id}) }}" class="reveal card-hover group block bg-[#120c04] border border-amber-900/30 hover:border-orange-700/40 rounded-xl p-5">
+                <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">{{ o.icon }}</div>
+                <h3 class="text-amber-200 font-semibold text-sm mb-2 group-hover:text-amber-300 transition-colors line-clamp-2">{{ o.titre }}</h3>
+                <div class="flex items-center justify-between">
+                    <span class="text-amber-700 text-xs">{{ o.type }}</span>
+                    <span class="badge-{{ o.statut }} text-xs px-2 py-0.5 rounded-full">{% if o.statut == 'ouvert' %}Ouvert{% else %}Fermé{% endif %}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

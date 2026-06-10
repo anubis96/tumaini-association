@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ activite.titre }} — MTU asbl{% endblock %}
+
+{% block body %}
+
+<!-- Hero detail -->
+<section class="relative pt-32 pb-0 overflow-hidden" style="background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(217,119,6,0.15) 0%, transparent 70%), #0a0704;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-2 mb-8 text-sm">
+            <a href="{{ path('app_home') }}" class="text-amber-700 hover:text-amber-500 transition-colors">Accueil</a>
+            <span class="text-amber-800">/</span>
+            <a href="{{ path('app_activites') }}" class="text-amber-700 hover:text-amber-500 transition-colors">Activités</a>
+            <span class="text-amber-800">/</span>
+            <span class="text-amber-500 line-clamp-1">{{ activite.titre[:40] }}...</span>
+        </div>
+
+        <!-- Header -->
+        <div class="flex flex-col lg:flex-row gap-10 items-start pb-16">
+            <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-3 mb-6">
+                    <span class="bg-amber-900/40 border border-amber-800/40 text-amber-400 text-xs px-3 py-1.5 rounded-full font-medium">{{ activite.categorie }}</span>
+                    <span class="badge-{{ activite.status }} text-xs font-semibold px-3 py-1.5 rounded-full">
+                        {% if activite.status == 'en_cours' %}● En cours
+                        {% elseif activite.status == 'termine' %}✓ Terminé
+                        {% else %}◷ Planifié{% endif %}
+                    </span>
+                </div>
+                <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl text-amber-100 font-bold leading-tight mb-6">
+                    {{ activite.titre }}
+                </h1>
+                <p class="text-amber-500 text-lg leading-relaxed">{{ activite.resume }}</p>
+            </div>
+            <!-- Big icon -->
+            <div class="flex-shrink-0 w-36 h-36 rounded-3xl bg-gradient-to-br from-amber-900/40 to-orange-950/60 border border-amber-800/30 flex items-center justify-center text-8xl shadow-2xl shadow-amber-900/30 animate-float">
+                {{ activite.image_icon }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-3 gap-12">
+
+            <!-- Description -->
+            <div class="lg:col-span-2 reveal">
+                <h2 class="font-display text-2xl text-amber-200 font-bold mb-6 flex items-center gap-3">
+                    <span class="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 inline-block"></span>
+                    Description complète
+                </h2>
+                <div class="text-amber-600 leading-relaxed text-base space-y-4 bg-[#120c04] border border-amber-900/20 rounded-2xl p-8">
+                    <p>{{ activite.description }}</p>
+                </div>
+
+                <!-- Impact section -->
+                <div class="mt-10">
+                    <h3 class="font-display text-xl text-amber-200 font-bold mb-5">Impact & Bénéficiaires</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gradient-to-br from-amber-900/25 to-orange-950/30 border border-amber-800/20 rounded-2xl p-6 text-center">
+                            <div class="gradient-text font-display text-4xl font-bold mb-2">{{ activite.participants }}</div>
+                            <div class="text-amber-700 text-xs uppercase tracking-wider">Participants</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-orange-900/25 to-amber-950/30 border border-orange-800/20 rounded-2xl p-6 text-center">
+                            <div class="text-amber-300 font-bold text-lg mb-2">{{ activite.beneficiaires }}</div>
+                            <div class="text-amber-700 text-xs uppercase tracking-wider">Bénéficiaires</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="reveal space-y-6">
+                <!-- Info card -->
+                <div class="bg-[#120c04] border border-amber-900/30 rounded-2xl p-6">
+                    <h3 class="text-amber-300 font-semibold text-sm uppercase tracking-wide mb-5">Informations</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg">📅</span>
+                            <div>
+                                <div class="text-amber-600 text-xs mb-1">Date</div>
+                                <div class="text-amber-300 text-sm font-medium">{{ activite.date }}</div>
+                            </div>
+                        </div>
+                        <div class="border-t border-amber-900/20"></div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg">📍</span>
+                            <div>
+                                <div class="text-amber-600 text-xs mb-1">Lieu</div>
+                                <div class="text-amber-300 text-sm font-medium">{{ activite.lieu }}</div>
+                            </div>
+                        </div>
+                        <div class="border-t border-amber-900/20"></div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg">🏷️</span>
+                            <div>
+                                <div class="text-amber-600 text-xs mb-1">Catégorie</div>
+                                <div class="text-amber-300 text-sm font-medium">{{ activite.categorie }}</div>
+                            </div>
+                        </div>
+                        <div class="border-t border-amber-900/20"></div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg">📊</span>
+                            <div>
+                                <div class="text-amber-600 text-xs mb-1">Statut</div>
+                                <span class="badge-{{ activite.status }} text-xs font-semibold px-2 py-1 rounded-full">
+                                    {% if activite.status == 'en_cours' %}En cours{% elseif activite.status == 'termine' %}Terminé{% else %}Planifié{% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <a href="{{ path('app_contact') }}" class="btn-shine w-full block bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white font-bold py-4 rounded-xl text-center shadow-xl shadow-amber-900/40 transition-all hover:scale-105">
+                    Nous soutenir
+                </a>
+                <a href="{{ path('app_activites') }}" class="w-full block border border-amber-800/40 hover:border-amber-600 text-amber-500 hover:text-amber-400 py-3 rounded-xl text-center text-sm transition-all hover:bg-amber-900/20">
+                    ← Toutes les activités
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other activities -->
+{% if autres %}
+<section class="py-16 border-t border-amber-900/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-2xl text-amber-200 font-bold mb-8">Autres activités</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for a in autres %}
+            <a href="{{ path('app_activite_show', {id: a.id}) }}" class="reveal card-hover group block bg-[#120c04] border border-amber-900/30 hover:border-amber-700/40 rounded-xl p-6">
+                <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">{{ a.image_icon }}</div>
+                <div class="text-amber-500 text-xs font-medium mb-2">{{ a.categorie }}</div>
+                <h3 class="text-amber-200 font-semibold text-sm mb-2 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">{{ a.titre }}</h3>
+                <span class="badge-{{ a.status }} text-xs px-2 py-0.5 rounded-full">
+                    {% if a.status == 'en_cours' %}En cours{% elseif a.status == 'termine' %}Terminé{% else %}Planifié{% endif %}
+                </span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

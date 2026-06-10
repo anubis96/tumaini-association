@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MTU asbl — Mwanadamu Tumaini{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    brand: {
+                        50:  '#fffbeb',
+                        100: '#fef3c7',
+                        200: '#fde68a',
+                        300: '#fcd34d',
+                        400: '#fbbf24',
+                        500: '#f59e0b',
+                        600: '#d97706',
+                        700: '#b45309',
+                        800: '#92400e',
+                        900: '#78350f',
+                    },
+                    accent: {
+                        400: '#fb923c',
+                        500: '#f97316',
+                        600: '#ea580c',
+                        700: '#c2410c',
+                    }
+                },
+                fontFamily: {
+                    display: ['Playfair Display', 'Georgia', 'serif'],
+                    body: ['DM Sans', 'sans-serif'],
+                    mono: ['JetBrains Mono', 'monospace'],
+                },
+                animation: {
+                    'fade-up': 'fadeUp 0.6s ease forwards',
+                    'slide-in': 'slideIn 0.5s ease forwards',
+                    'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+                    'float': 'float 3s ease-in-out infinite',
+                },
+                keyframes: {
+                    fadeUp: {
+                        '0%': { opacity: '0', transform: 'translateY(30px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                    slideIn: {
+                        '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                        '100%': { opacity: '1', transform: 'translateX(0)' },
+                    },
+                    pulseSoft: {
+                        '0%, 100%': { opacity: '1' },
+                        '50%': { opacity: '0.7' },
+                    },
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0px)' },
+                        '50%': { transform: 'translateY(-8px)' },
+                    }
+                }
+            }
+        }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+
+        /* Glassmorphism nav */
+        .nav-glass {
+            background: rgba(15, 10, 5, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animated gradient border */
+        .gradient-border {
+            background: linear-gradient(135deg, #d97706, #f97316, #fbbf24);
+            padding: 2px;
+            border-radius: 12px;
+        }
+
+        /* Hero mesh gradient background */
+        .hero-bg {
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 40%, rgba(217, 119, 6, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(249, 115, 22, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 50% 20%, rgba(251, 191, 36, 0.08) 0%, transparent 50%),
+                #0a0704;
+        }
+
+        /* Card hover effect */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(217, 119, 6, 0.2);
+        }
+
+        /* Status badges */
+        .badge-en_cours { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+        .badge-termine { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+        .badge-planifie { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+        .badge-ouvert { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+        .badge-ferme { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1008; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 3px; }
+
+        /* Nav link underline */
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
+            background: linear-gradient(90deg, #fbbf24, #f97316); transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* Button shine effect */
+        .btn-shine {
+            position: relative; overflow: hidden;
+        }
+        .btn-shine::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-shine:hover::before { left: 100%; }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(217,119,6,0.4), rgba(249,115,22,0.4), transparent);
+        }
+
+        /* Noise texture overlay */
+        .noise-overlay {
+            position: relative;
+        }
+        .noise-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Mobile menu */
+        #mobile-menu { transition: all 0.3s ease; }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-[#0a0704] text-amber-50 min-h-screen">
+
+    <!-- NAVIGATION -->
+    <nav class="nav-glass fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Logo -->
+                <a href="{{ path('app_home') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-amber-900/40 group-hover:scale-105 transition-transform">
+                        MTU
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="font-display text-amber-300 text-sm font-bold leading-none">MWANADAMU</div>
+                        <div class="text-amber-600 text-xs tracking-widest uppercase">TUMAINI asbl</div>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="{{ path('app_home') }}" class="nav-link text-amber-200 hover:text-amber-400 text-sm font-medium transition-colors {% if app.request.get('_route') == 'app_home' %}active text-amber-400{% endif %}">
+                        Accueil
+                    </a>
+                    <a href="{{ path('app_activites') }}" class="nav-link text-amber-200 hover:text-amber-400 text-sm font-medium transition-colors {% if app.request.get('_route') starts with 'app_activite' %}active text-amber-400{% endif %}">
+                        Activités
+                    </a>
+                    <a href="{{ path('app_offres') }}" class="nav-link text-amber-200 hover:text-amber-400 text-sm font-medium transition-colors {% if app.request.get('_route') starts with 'app_offre' %}active text-amber-400{% endif %}">
+                        Offres d'emploi
+                    </a>
+                    <a href="{{ path('app_membres') }}" class="nav-link text-amber-200 hover:text-amber-400 text-sm font-medium transition-colors {% if app.request.get('_route') == 'app_membres' %}active text-amber-400{% endif %}">
+                        Membres
+                    </a>
+                    <a href="{{ path('app_about') }}" class="nav-link text-amber-200 hover:text-amber-400 text-sm font-medium transition-colors {% if app.request.get('_route') == 'app_about' %}active text-amber-400{% endif %}">
+                        À propos
+                    </a>
+                    <a href="{{ path('app_contact') }}" class="btn-shine bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white text-sm font-semibold px-5 py-2 rounded-lg shadow-lg shadow-amber-900/40 transition-all">
+                        Contact
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-toggle" class="md:hidden text-amber-400 hover:text-amber-300 p-2">
+                    <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-amber-900/30">
+            <div class="px-4 py-4 space-y-2 bg-[#110b04]">
+                <a href="{{ path('app_home') }}" class="block px-3 py-2 text-amber-200 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all text-sm">🏠 Accueil</a>
+                <a href="{{ path('app_activites') }}" class="block px-3 py-2 text-amber-200 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all text-sm">📋 Activités</a>
+                <a href="{{ path('app_offres') }}" class="block px-3 py-2 text-amber-200 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all text-sm">💼 Offres d'emploi</a>
+                <a href="{{ path('app_membres') }}" class="block px-3 py-2 text-amber-200 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all text-sm">👥 Membres</a>
+                <a href="{{ path('app_about') }}" class="block px-3 py-2 text-amber-200 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all text-sm">ℹ️ À propos</a>
+                <a href="{{ path('app_contact') }}" class="block px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-500 text-white rounded-lg text-sm font-semibold text-center mt-2">✉️ Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <main class="pt-16">
+        {% block body %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#080503] border-t border-amber-900/20 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold shadow-lg">MTU</div>
+                        <div>
+                            <div class="font-display text-amber-300 font-bold text-lg">MWANADAMU TUMAINI</div>
+                            <div class="text-amber-700 text-xs tracking-widest uppercase">asbl — Uvira, RD Congo</div>
+                        </div>
+                    </div>
+                    <p class="text-amber-900 text-sm leading-relaxed max-w-sm">
+                        Militer pour la consolidation de la paix en RDC et pour le développement endogène des communautés tant rurales qu'urbaines de la province du Sud-Kivu.
+                    </p>
+                    <div class="flex gap-3 mt-6">
+                        <a href="mailto:mawanadamutumaini@gmail.com" class="flex items-center gap-2 text-amber-700 hover:text-amber-400 text-sm transition-colors">
+                            <span>✉️</span> mawanadamutumaini@gmail.com
+                        </a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="tel:+24397482155" class="flex items-center gap-2 text-amber-700 hover:text-amber-400 text-sm transition-colors">
+                            <span>📞</span> +243 97 482 155
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="text-amber-400 font-semibold text-sm uppercase tracking-wider mb-4">Navigation</h4>
+                    <ul class="space-y-3">
+                        <li><a href="{{ path('app_home') }}" class="text-amber-800 hover:text-amber-400 text-sm transition-colors">Accueil</a></li>
+                        <li><a href="{{ path('app_activites') }}" class="text-amber-800 hover:text-amber-400 text-sm transition-colors">Activités</a></li>
+                        <li><a href="{{ path('app_offres') }}" class="text-amber-800 hover:text-amber-400 text-sm transition-colors">Offres d'emploi</a></li>
+                        <li><a href="{{ path('app_membres') }}" class="text-amber-800 hover:text-amber-400 text-sm transition-colors">Membres</a></li>
+                        <li><a href="{{ path('app_about') }}" class="text-amber-800 hover:text-amber-400 text-sm transition-colors">À propos</a></li>
+                        <li><a href="{{ path('app_contact') }}" class="text-amber-800 hover:text-amber-400 text-sm transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-amber-400 font-semibold text-sm uppercase tracking-wider mb-4">Localisation</h4>
+                    <div class="space-y-3 text-sm text-amber-800">
+                        <div class="flex gap-2">
+                            <span>📍</span>
+                            <span>Ville d'Uvira<br>Quartier Rombe 2<br>Avenue Orthodoxe<br>Province du Sud-Kivu, RDC</span>
+                        </div>
+                        <div class="mt-4 p-3 rounded-lg bg-amber-900/10 border border-amber-900/20">
+                            <div class="text-amber-600 text-xs uppercase tracking-wide font-medium mb-1">Zone d'action</div>
+                            <div class="text-amber-700 text-xs">Province du Sud-Kivu et zones humanitaires urgentes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider my-8"></div>
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-amber-900">
+                <span>© {{ "now"|date("Y") }} MTU asbl — MWANADAMU TUMAINI. Tous droits réservés.</span>
+                <span class="text-amber-800">🕊️ Pour la paix et le développement au Sud-Kivu</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('mobile-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    toggle.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.style.borderBottomColor = 'rgba(217, 119, 6, 0.25)';
+        } else {
+            nav.style.borderBottomColor = 'rgba(251, 191, 36, 0.15)';
+        }
+    });
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
