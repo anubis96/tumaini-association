@@ -10,12 +10,15 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class AssociationApiService
 {
     private string $baseUrl;
+    private string $uploadsUrl;
     
     public function __construct(
         private HttpClientInterface $httpClient,
-        string $apiUrl
+        string $apiUrl,
+        string $uploadsUrl
     ) {
         $this->baseUrl = $apiUrl;
+        $this->uploadsUrl = rtrim($uploadsUrl, '/');
     }
 
     /**
@@ -159,6 +162,107 @@ class AssociationApiService
     }
 
     /**
+     * Récupère toutes les galeries
+     * @return array
+     */
+    public function getGalleries(): array
+    {
+        try {
+            $response = $this->httpClient->request('GET', $this->baseUrl . '/gallery');
+            
+            if ($response->getStatusCode() !== Response::HTTP_OK) {
+                return [];
+            }
+            
+            $data = $response->toArray();
+            
+            return array_map(function($item) {
+                return $this->formatGallery($item);
+            }, $data);
+            
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to fetch galleries from API', [
+                'error' => $e->getMessage()
+            ]);
+            return [];
+        }
+    }
+
+    /**
+     * Récupère une galerie par son ID
+     * @param int $id
+     * @return array|null
+     */
+    public function getGalleryById(int $id): ?array
+    {
+        try {
+            $response = $this->httpClient->request('GET', $this->baseUrl . '/gallery/' . $id);
+            
+            if ($response->getStatusCode() !== Response::HTTP_OK) {
+                return null;
+            }
+            
+            $data = $response->toArray();
+            return $this->formatGallery($data);
+            
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Récupère les dernières galeries
+     * @param int $limit
+     * @return array
+     */
+    public function getLatestGalleries(int $limit = 6): array
+    {
+        try {
+            $response = $this->httpClient->request('GET', $this->baseUrl . '/gallery/list/latest');
+            
+            if ($response->getStatusCode() !== Response::HTTP_OK) {
+                return [];
+            }
+            
+            $data = $response->toArray();
+            
+            return array_map(function($item) {
+                return $this->formatGallery($item);
+            }, array_slice($data, 0, $limit));
+            
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+
+    /**
+     * Formate une galerie pour correspondre au template
+     * @param array $data
+     * @return array
+     */
+    private function formatGallery(array $data): array
+    {
+        $imageUrls = [];
+        foreach ($data['image_urls'] ?? [] as $imageUrl) {
+            // Si l'URL est relative, construire l'URL complète
+            if (!str_starts_with($imageUrl, 'http')) {
+                $imageUrls[] = $this->uploadsUrl . $imageUrl;
+            } else {
+                $imageUrls[] = $imageUrl;
+            }
+        }
+        // dd($imageUrls);
+        
+        return [
+            'id' => $data['id'] ?? null,
+            'title' => $data['title'] ?? '',
+            'description' => $data['description'] ?? '',
+            'image_urls' => $imageUrls,
+            'created_at' => $data['created_at'] ?? '',
+        ];
+    }
+
+    /**
      * Récupère les statistiques du dashboard
      * @return array
      */
@@ -185,6 +289,15 @@ class AssociationApiService
      */
     private function formatActivity(array $data): array
     {
+        $imageUrl = '';
+        if (!empty($data['imageUrl'])) {
+            if (str_starts_with($data['imageUrl'], 'http')) {
+                $imageUrl = $data['imageUrl'];
+            } else {
+                $imageUrl = $this->uploadsUrl . '/activities/' . $data['imageUrl'];
+            }
+        }
+        
         return [
             'id' => $data['id'] ?? null,
             'titre' => $data['title'] ?? '',
@@ -196,6 +309,7 @@ class AssociationApiService
             'categorie' => $data['categories']['nom'] ?? ($data['categorie'] ?? 'Non classé'),
             'image_icon' => $data['image_icon'] ?? '📌',
             'participants' => $data['participants'] ?? 0,
+            'image_url' => $imageUrl, 
             'beneficiaires' => $data['beneficiaires'] ?? '',
         ];
     }

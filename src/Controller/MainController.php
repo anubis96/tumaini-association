@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\DataFixtures\AppData;
 use App\Service\AssociationApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +13,19 @@ class MainController extends AbstractController
         private AssociationApiService $apiService
     ) {}
 
-        #[Route('/', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function index(): Response
     {
         $activities = $this->apiService->getActivities();
         $offers = $this->apiService->getOffers();
         $members = $this->apiService->getMembers();
+        $galleries = $this->apiService->getLatestGalleries();
         
         return $this->render('pages/home.html.twig', [
             'activites' => array_slice($activities, 0, 3),
             'offres' => array_slice($offers, 0, 3),
             'membres' => array_slice($members, 0, 4),
+            'galleries' => $galleries,
         ]);
     }
 
@@ -165,6 +166,16 @@ class MainController extends AbstractController
     {
         return $this->render('membre/index.html.twig', [
             'membres' => $this->apiService->getMembers(),
+        ]);
+    }
+
+    #[Route('/galerie', name: 'app_gallery')]
+    public function gallery(): Response
+    {
+        $galleries = $this->apiService->getGalleries();
+        
+        return $this->render('gallery/index.html.twig', [
+            'galleries' => $galleries,
         ]);
     }
     // #[Route('/membres', name: 'app_membres')]

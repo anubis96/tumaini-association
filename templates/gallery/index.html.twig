@@ -1,0 +1,353 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie photo — MTU asbl{% endblock %}
+
+{% block body %}
+
+<!-- Page Header avec effet parallaxe -->
+<section class="relative pt-32 pb-24 overflow-hidden" style="background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212,175,55,0.12) 0%, transparent 70%), #0a0704;">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(212,175,55,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.5) 1px,transparent 1px); background-size: 60px 60px;"></div>
+    
+    <!-- Orbe animé -->
+    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-pulse-soft"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-500/30 bg-primary-900/30 text-primary-300 text-xs font-semibold tracking-widest uppercase mb-6 animate-fade-in">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse"></span>
+                Nos moments forts
+            </div>
+            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl text-amber-100 font-bold mb-6 animate-fade-up">
+                Galerie photo
+            </h1>
+            <p class="text-amber-500 text-lg leading-relaxed max-w-2xl mx-auto animate-fade-up animation-delay-200">
+                Découvrez nos actions à travers des images qui racontent notre engagement pour la paix et le développement.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Vague décorative -->
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#0a0704"/>
+        </svg>
+    </div>
+</section>
+
+<!-- Galerie Albums -->
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {% if galleries is empty %}
+        <div class="text-center py-20">
+            <svg class="w-32 h-32 mx-auto text-primary-700 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <h3 class="text-2xl font-display text-amber-200 mb-2">Aucun album disponible</h3>
+            <p class="text-amber-600">Revenez bientôt pour découvrir nos photos.</p>
+        </div>
+        {% endif %}
+
+        <!-- Grille des albums -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for gallery in galleries %}
+            <div class="album-card group reveal" data-gallery-index="{{ loop.index0 }}" onclick="openAlbumModal({{ loop.index0 }})">
+                <div class="relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#140d05] to-[#0f0903] border border-primary-800/30 hover:border-primary-600/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary-900/40 cursor-pointer">
+                    
+                    <!-- Image principale de l'album avec overlay -->
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="{{ gallery.image_urls[0] ?? '/images/fallback.jpg' }}" 
+                             alt="{{ gallery.title }}"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Overlay gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0704] via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        
+                        <!-- Badge compteur de photos -->
+                        <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-full px-3 py-1.5 text-xs font-medium text-amber-300 border border-primary-500/30">
+                            <svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            {{ gallery.image_urls|length }} photos
+                        </div>
+                        
+                        <!-- Icône de zoom au survol -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                            <div class="bg-primary-500/90 backdrop-blur-sm rounded-full p-4 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Titre et description -->
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold text-amber-100 mb-2 group-hover:text-amber-300 transition-colors">
+                            {{ gallery.title }}
+                        </h3>
+                        <p class="text-primary-400 text-sm leading-relaxed line-clamp-2">
+                            {{ gallery.description|default('Découvrez nos moments forts en images.') }}
+                        </p>
+                        
+                        <!-- Lien indicatif -->
+                        <div class="mt-4 flex items-center gap-2 text-primary-500 text-sm group-hover:text-primary-400 transition-colors">
+                            <span>Explorer l'album</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Modal Carousel Premium -->
+<div id="albumModal" class="fixed inset-0 z-50 hidden">
+    <!-- Fond avec flou et assombrissement -->
+    <div class="absolute inset-0 bg-black/95 backdrop-blur-md transition-opacity duration-500" onclick="closeAlbumModal()"></div>
+    
+    <!-- Conteneur du carousel -->
+    <div class="relative h-full flex flex-col items-center justify-center px-4 sm:px-8">
+        
+        <!-- Bouton fermeture -->
+        <button onclick="closeAlbumModal()" class="absolute top-6 right-6 z-20 text-white/70 hover:text-amber-400 transition-all duration-300 hover:scale-110">
+            <svg class="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        
+        <!-- Navigation précédente -->
+        <button id="prevBtn" onclick="changeImage(-1)" class="absolute left-4 sm:left-8 z-20 text-white/60 hover:text-amber-400 transition-all duration-300 hover:scale-110 bg-black/30 hover:bg-black/50 rounded-full p-2 sm:p-3 backdrop-blur-sm">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        
+        <!-- Navigation suivante -->
+        <button id="nextBtn" onclick="changeImage(1)" class="absolute right-4 sm:right-8 z-20 text-white/60 hover:text-amber-400 transition-all duration-300 hover:scale-110 bg-black/30 hover:bg-black/50 rounded-full p-2 sm:p-3 backdrop-blur-sm">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+        
+        <!-- Image principale avec animation -->
+        <div class="relative max-w-6xl w-full mx-auto">
+            <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+                <img id="modalImage" src="" alt="" class="w-full max-h-[70vh] object-contain transition-opacity duration-300">
+                
+                <!-- Overlay dégradé en bas pour le texte -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 rounded-b-2xl">
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <h2 id="modalTitle" class="text-amber-300 font-display text-xl sm:text-2xl font-bold"></h2>
+                            <p id="modalDescription" class="text-amber-600 text-sm mt-1"></p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="modalCounter" class="text-amber-400 text-sm bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Miniatures / indicateurs -->
+        <div class="absolute bottom-8 left-0 right-0">
+            <div class="flex justify-center gap-2 flex-wrap px-4">
+                <div id="thumbnails" class="flex gap-2 justify-center flex-wrap"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .album-card {
+        animation: fadeInUp 0.6s ease forwards;
+        opacity: 0;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animation-delay-200 {
+        animation-delay: 0.2s;
+    }
+    
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Animation d'entrée pour le modal */
+    .modal-enter {
+        animation: modalFadeIn 0.4s ease-out;
+    }
+    
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    /* Style des miniatures */
+    .thumbnail {
+        transition: all 0.3s ease;
+        opacity: 0.6;
+        border: 2px solid transparent;
+    }
+    
+    .thumbnail:hover {
+        opacity: 0.9;
+        transform: scale(1.05);
+    }
+    
+    .thumbnail.active {
+        opacity: 1;
+        border-color: #d4af37;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    }
+</style>
+
+<script>
+    // Données des galeries passées depuis Twig
+    const galleriesData = {{ galleries|json_encode|raw }};
+    
+    let currentAlbumIndex = 0;
+    let currentImageIndex = 0;
+    let isModalOpen = false;
+    
+    function openAlbumModal(albumIndex) {
+        currentAlbumIndex = albumIndex;
+        currentImageIndex = 0;
+        isModalOpen = true;
+        
+        const modal = document.getElementById('albumModal');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        // Animation d'entrée
+        const modalContent = modal.querySelector('.relative');
+        modalContent.classList.add('modal-enter');
+        setTimeout(() => {
+            modalContent.classList.remove('modal-enter');
+        }, 500);
+        
+        updateModalContent();
+    }
+    
+    function closeAlbumModal() {
+        const modal = document.getElementById('albumModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+        isModalOpen = false;
+    }
+    
+    function updateModalContent() {
+        const album = galleriesData[currentAlbumIndex];
+        const image = album.image_urls[currentImageIndex];
+        const total = album.image_urls.length;
+        
+        // Mettre à jour l'image
+        const imgElement = document.getElementById('modalImage');
+        imgElement.style.opacity = '0';
+        setTimeout(() => {
+            imgElement.src = image;
+            imgElement.style.opacity = '1';
+        }, 150);
+        
+        // Mettre à jour le titre et la description
+        document.getElementById('modalTitle').textContent = album.title;
+        document.getElementById('modalDescription').textContent = album.description || '';
+        document.getElementById('modalCounter').textContent = `${currentImageIndex + 1} / ${total}`;
+        
+        // Mettre à jour les miniatures
+        updateThumbnails();
+    }
+    
+    function updateThumbnails() {
+        const album = galleriesData[currentAlbumIndex];
+        const thumbnailsContainer = document.getElementById('thumbnails');
+        
+        thumbnailsContainer.innerHTML = '';
+        
+        album.image_urls.forEach((url, index) => {
+            const thumb = document.createElement('button');
+            thumb.className = `thumbnail w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden transition-all ${index === currentImageIndex ? 'active' : ''}`;
+            thumb.onclick = () => goToImage(index);
+            
+            const img = document.createElement('img');
+            img.src = url;
+            img.className = 'w-full h-full object-cover';
+            img.alt = `Miniature ${index + 1}`;
+            
+            thumb.appendChild(img);
+            thumbnailsContainer.appendChild(thumb);
+        });
+    }
+    
+    function goToImage(index) {
+        const album = galleriesData[currentAlbumIndex];
+        if (index >= 0 && index < album.image_urls.length) {
+            currentImageIndex = index;
+            updateModalContent();
+        }
+    }
+    
+    function changeImage(direction) {
+        const album = galleriesData[currentAlbumIndex];
+        let newIndex = currentImageIndex + direction;
+        
+        if (newIndex >= album.image_urls.length) {
+            newIndex = 0;
+        } else if (newIndex < 0) {
+            newIndex = album.image_urls.length - 1;
+        }
+        
+        if (newIndex !== currentImageIndex) {
+            currentImageIndex = newIndex;
+            updateModalContent();
+        }
+    }
+    
+    // Navigation au clavier
+    document.addEventListener('keydown', function(e) {
+        if (!isModalOpen) return;
+        
+        if (e.key === 'ArrowLeft') {
+            changeImage(-1);
+        } else if (e.key === 'ArrowRight') {
+            changeImage(1);
+        } else if (e.key === 'Escape') {
+            closeAlbumModal();
+        }
+    });
+    
+    // Empêcher le clic sur les boutons de navigation de fermer le modal
+    document.getElementById('prevBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+</script>
+
+{% endblock %}

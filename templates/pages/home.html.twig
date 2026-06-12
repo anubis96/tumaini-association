@@ -151,7 +151,21 @@
 
                 <!-- Card Header -->
                 <div class="relative h-48 bg-gradient-to-br from-amber-900/40 via-orange-950/60 to-[#0f0903] flex items-center justify-center overflow-hidden">
-                    <div class="text-7xl group-hover:scale-110 transition-transform duration-300">{{ activite.image_icon }}</div>
+                    {# <div class="text-7xl group-hover:scale-110 transition-transform duration-300">{{ activite.image_icon }}</div> #}
+                        {% if activite.image_url %}
+                            <img src="{{ activite.image_url }}" 
+                                alt="{{ activite.titre }}" 
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all"></div>
+                            <!-- Icône superposée si l'image existe -->
+                            <div class="absolute text-4xl opacity-80 group-hover:opacity-100 transition-opacity">
+                                {{ activite.image_icon }}
+                            </div>
+                        {% else %}
+                            <div class="text-7xl group-hover:scale-110 transition-transform duration-300">
+                                {{ activite.image_icon }}
+                            </div>
+                        {% endif %}
                     <!-- Glow -->
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0f0903] via-transparent to-transparent"></div>
                     <!-- Status badge -->
@@ -201,6 +215,43 @@
     </div>
 </section>
 
+<!-- ==================== GALERIE SECTION ==================== -->
+<section class="py-24 bg-gradient-to-b from-[#0a0704] to-[#0e0905]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
+            <div class="reveal">
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+                    <span class="text-orange-400 text-xs font-semibold uppercase tracking-widest">Mémoires visuelles</span>
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl text-amber-100 font-bold">Galerie photo</h2>
+                <p class="text-amber-700 mt-3 max-w-md">Découvrez nos moments forts en images.</p>
+            </div>
+            <a href="{{ path('app_gallery') }}" class="reveal btn-shine flex-shrink-0 inline-flex items-center gap-2 border border-amber-700/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:bg-amber-900/20">
+                Voir toute la galerie
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {% for gallery in galleries %}
+                {% for image in gallery.image_urls|slice(0, 1) %}
+                <div class="reveal group relative overflow-hidden rounded-2xl aspect-square cursor-pointer" onclick="openLightbox({{ loop.parent.loop.index0 }}, 0)">
+                    <img src="{{ image }}" 
+                         alt="{{ gallery.title }}" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-amber-200 font-semibold text-sm line-clamp-1">{{ gallery.title }}</h3>
+                            <p class="text-amber-600 text-xs">{{ gallery.image_urls|length }} photos</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 <!-- ==================== OFFRES SECTION ==================== -->
 <section class="py-24 bg-gradient-to-b from-[#0a0704] via-[#0e0905] to-[#0a0704] relative">
@@ -298,7 +349,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- ==================== CTA SECTION ==================== -->
 <section class="py-24">
