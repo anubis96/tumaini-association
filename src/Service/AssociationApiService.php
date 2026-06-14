@@ -21,6 +21,28 @@ class AssociationApiService
         $this->uploadsUrl = rtrim($uploadsUrl, '/');
     }
 
+    public function getCategories(): array
+    {
+        try {
+            $response = $this->httpClient->request('GET', $this->baseUrl . '/categories');
+            
+            if ($response->getStatusCode() !== Response::HTTP_OK) {
+                return [];
+            }
+            
+            $data = $response->toArray();
+            
+            // Transformer les données pour correspondre au format attendu par les templates
+            return array_map(function($item) {
+                return $this->formatCategory($item);
+            }, $data);
+            
+        } catch (\Exception $e) {
+            // En cas d'erreur, retourner un tableau vide
+            return [];
+        }
+    }
+
     /**
      * Récupère toutes les activités
      * @return array
@@ -355,6 +377,22 @@ class AssociationApiService
             'couleur' => $data['couleur'] ?? 'from-amber-500 to-orange-600',
             'linkedin' => $data['linkedin'] ?? '#',
             'email' => $data['email'] ?? '',
+        ];
+    }
+
+        /**
+     * Formate un membre pour correspondre au template
+     * @param array $data
+     * @return array
+     */
+    private function formatCategory(array $data): array
+    {
+        return [
+            'id' => $data['id'] ?? null,
+            'name' => $data['name'] ?? '',
+            'icon' => $data['icon'] ?? '',
+            'description' => $data['description'] ?? '',
+            'couleur' => $data['couleur'] ?? '',
         ];
     }
 }

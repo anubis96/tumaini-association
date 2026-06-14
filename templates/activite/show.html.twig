@@ -1,5 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ activite.titre }} — MTU asbl{% endblock %}
+{% block extra_head %}
+<style>
+    /* Dans votre fichier CSS global */
+    @media (max-width: 640px) {
+        .text-amber-600 {
+            font-size: 0.9375rem; /* 15px sur mobile */
+            line-height: 1.6;
+        }
+        
+        .break-words {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
+        /* Pour les très longs mots */
+        .whitespace-normal {
+            white-space: normal;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block body %}
 
@@ -40,6 +62,46 @@
 </section>
 
 <!-- Main content -->
+<section class="relative pt-32 pb-0 overflow-hidden" style="background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(217,119,6,0.15) 0%, transparent 70%), #0a0704;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb - CORRIGÉ -->
+        <div class="flex flex-wrap items-center gap-2 mb-8 text-sm">
+            <a href="{{ path('app_home') }}" class="text-amber-700 hover:text-amber-500 transition-colors">Accueil</a>
+            <span class="text-amber-800">/</span>
+            <a href="{{ path('app_activites') }}" class="text-amber-700 hover:text-amber-500 transition-colors">Activités</a>
+            <span class="text-amber-800">/</span>
+            {# Supprimer line-clamp-1 qui cache le texte sur mobile #}
+            <span class="text-amber-500 break-words max-w-[200px] sm:max-w-none">{{ activite.titre }}</span>
+        </div>
+
+        <!-- Header -->
+        <div class="flex flex-col lg:flex-row gap-10 items-start pb-16">
+            <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-3 mb-6">
+                    <span class="bg-amber-900/40 border border-amber-800/40 text-amber-400 text-xs px-3 py-1.5 rounded-full font-medium">{{ activite.categorie }}</span>
+                    <span class="badge-{{ activite.status }} text-xs font-semibold px-3 py-1.5 rounded-full">
+                        {% if activite.status == 'en_cours' %}● En cours
+                        {% elseif activite.status == 'termine' %}✓ Terminé
+                        {% else %}◷ Planifié{% endif %}
+                    </span>
+                </div>
+                <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl text-amber-100 font-bold leading-tight mb-6 break-words">
+                    {{ activite.titre }}
+                </h1>
+                <!-- CORRIGÉ: taille de police plus grande sur mobile -->
+                <p class="text-amber-500 text-base sm:text-lg lg:text-xl leading-relaxed break-words">
+                    {{ activite.resume }}
+                </p>
+            </div>
+            <!-- Big icon -->
+            <div class="flex-shrink-0 w-36 h-36 rounded-3xl bg-gradient-to-br from-amber-900/40 to-orange-950/60 border border-amber-800/30 flex items-center justify-center text-8xl shadow-2xl shadow-amber-900/30 animate-float">
+                {{ activite.image_icon }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
 <section class="py-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-3 gap-12">
@@ -50,8 +112,12 @@
                     <span class="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 inline-block"></span>
                     Description complète
                 </h2>
-                <div class="text-amber-600 leading-relaxed text-base space-y-4 bg-[#120c04] border border-amber-900/20 rounded-2xl p-8">
-                    <p>{{ activite.description }}</p>
+                <!-- CORRIGÉ: meilleur padding et taille de police sur mobile -->
+                <div class="text-amber-600 leading-relaxed text-sm sm:text-base space-y-4 bg-[#120c04] border border-amber-900/20 rounded-2xl p-5 sm:p-8">
+                    {# Correction: permettre le word-wrap sur la description #}
+                    <div class="break-words whitespace-normal">
+                        {{ activite.description|nl2br }}
+                    </div>
                 </div>
 
                 <!-- Impact section -->
@@ -59,11 +125,11 @@
                     <h3 class="font-display text-xl text-amber-200 font-bold mb-5">Impact & Bénéficiaires</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gradient-to-br from-amber-900/25 to-orange-950/30 border border-amber-800/20 rounded-2xl p-6 text-center">
-                            <div class="gradient-text font-display text-4xl font-bold mb-2">{{ activite.participants }}</div>
+                            <div class="gradient-text font-display text-3xl sm:text-4xl font-bold mb-2 break-words">{{ activite.participants }}</div>
                             <div class="text-amber-700 text-xs uppercase tracking-wider">Participants</div>
                         </div>
                         <div class="bg-gradient-to-br from-orange-900/25 to-amber-950/30 border border-orange-800/20 rounded-2xl p-6 text-center">
-                            <div class="text-amber-300 font-bold text-lg mb-2">{{ activite.beneficiaires }}</div>
+                            <div class="text-amber-300 font-bold text-base sm:text-lg mb-2 break-words">{{ activite.beneficiaires }}</div>
                             <div class="text-amber-700 text-xs uppercase tracking-wider">Bénéficiaires</div>
                         </div>
                     </div>
@@ -73,38 +139,38 @@
             <!-- Sidebar -->
             <div class="reveal space-y-6">
                 <!-- Info card -->
-                <div class="bg-[#120c04] border border-amber-900/30 rounded-2xl p-6">
+                <div class="bg-[#120c04] border border-amber-900/30 rounded-2xl p-5 sm:p-6">
                     <h3 class="text-amber-300 font-semibold text-sm uppercase tracking-wide mb-5">Informations</h3>
                     <div class="space-y-4">
                         <div class="flex items-start gap-3">
-                            <span class="text-lg">📅</span>
-                            <div>
+                            <span class="text-lg flex-shrink-0">📅</span>
+                            <div class="min-w-0 flex-1">
                                 <div class="text-amber-600 text-xs mb-1">Date</div>
-                                <div class="text-amber-300 text-sm font-medium">{{ activite.date }}</div>
+                                <div class="text-amber-300 text-sm font-medium break-words">{{ activite.date }}</div>
                             </div>
                         </div>
                         <div class="border-t border-amber-900/20"></div>
                         <div class="flex items-start gap-3">
-                            <span class="text-lg">📍</span>
-                            <div>
+                            <span class="text-lg flex-shrink-0">📍</span>
+                            <div class="min-w-0 flex-1">
                                 <div class="text-amber-600 text-xs mb-1">Lieu</div>
-                                <div class="text-amber-300 text-sm font-medium">{{ activite.lieu }}</div>
+                                <div class="text-amber-300 text-sm font-medium break-words">{{ activite.lieu }}</div>
                             </div>
                         </div>
                         <div class="border-t border-amber-900/20"></div>
                         <div class="flex items-start gap-3">
-                            <span class="text-lg">🏷️</span>
-                            <div>
+                            <span class="text-lg flex-shrink-0">🏷️</span>
+                            <div class="min-w-0 flex-1">
                                 <div class="text-amber-600 text-xs mb-1">Catégorie</div>
-                                <div class="text-amber-300 text-sm font-medium">{{ activite.categorie }}</div>
+                                <div class="text-amber-300 text-sm font-medium break-words">{{ activite.categorie }}</div>
                             </div>
                         </div>
                         <div class="border-t border-amber-900/20"></div>
                         <div class="flex items-start gap-3">
-                            <span class="text-lg">📊</span>
+                            <span class="text-lg flex-shrink-0">📊</span>
                             <div>
                                 <div class="text-amber-600 text-xs mb-1">Statut</div>
-                                <span class="badge-{{ activite.status }} text-xs font-semibold px-2 py-1 rounded-full">
+                                <span class="badge-{{ activite.status }} text-xs font-semibold px-2 py-1 rounded-full inline-block">
                                     {% if activite.status == 'en_cours' %}En cours{% elseif activite.status == 'termine' %}Terminé{% else %}Planifié{% endif %}
                                 </span>
                             </div>

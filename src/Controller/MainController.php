@@ -20,12 +20,14 @@ class MainController extends AbstractController
         $offers = $this->apiService->getOffers();
         $members = $this->apiService->getMembers();
         $galleries = $this->apiService->getLatestGalleries();
+        $categories = $this->apiService->getCategories();
         
         return $this->render('pages/home.html.twig', [
             'activites' => array_slice($activities, 0, 3),
             'offres' => array_slice($offers, 0, 3),
             'membres' => array_slice($members, 0, 4),
             'galleries' => $galleries,
+            'categories' => $categories
         ]);
     }
 

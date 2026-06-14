@@ -101,18 +101,15 @@
 <!-- ==================== MISSION BANNER ==================== -->
 <section class="py-12 bg-gradient-to-r from-amber-950 via-[#1a0c03] to-orange-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-2 mb-3">
+        <div class="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+        <span class="text-orange-400 text-xs font-semibold uppercase tracking-widest">Domaines d'intervention</span>
+    </div>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {% set domains = [
-                {icon: '📚', label: 'Éducation & Info'},
-                {icon: '🛡️', label: 'Protection'},
-                {icon: '🌱', label: 'Agriculture'},
-                {icon: '🏥', label: 'Santé'},
-                {icon: '💧', label: 'Hygiène'}
-            ] %}
-            {% for domain in domains %}
+            {% for category in categories %}
             <div class="flex items-center gap-3 reveal">
-                <span class="text-2xl">{{ domain.icon }}</span>
-                <span class="text-amber-300 text-sm font-medium">{{ domain.label }}</span>
+                <span class="text-2xl">{{ category.icon }}</span>
+                <span class="text-amber-300 text-sm font-medium">{{ category.name }}</span>
             </div>
             {% endfor %}
         </div>
@@ -169,17 +166,18 @@
                     <!-- Glow -->
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0f0903] via-transparent to-transparent"></div>
                     <!-- Status badge -->
-                    <div class="absolute top-4 right-4">
-                        <span class="badge-{{ activite.status }} text-xs font-semibold px-3 py-1 rounded-full">
-                            {% if activite.status == 'en_cours' %}● En cours
-                            {% elseif activite.status == 'termine' %}✓ Terminé
-                            {% else %}◷ Planifié{% endif %}
-                        </span>
-                    </div>
-                    <!-- Category -->
-                    <div class="absolute top-4 left-4 bg-amber-900/50 border border-amber-800/40 text-amber-400 text-xs px-3 py-1 rounded-full">
-                        {{ activite.categorie }}
-                    </div>
+                    
+                        <div class="absolute top-4 right-4">
+                            <span class="badge-{{ activite.status }} text-xs font-semibold px-3 py-1 rounded-full">
+                                {% if activite.status == 'en_cours' %}● En cours
+                                {% elseif activite.status == 'termine' %}✓ Terminé
+                                {% else %}◷ Planifié{% endif %}
+                            </span>
+                        </div>
+                        <!-- Category -->
+                        <div class="absolute top-4 left-4 bg-amber-900/50 border border-amber-800/40 text-amber-400 text-xs px-3 py-1 rounded-full">
+                            {{ activite.categorie }}
+                        </div>
                 </div>
 
                 <!-- Card Body -->
