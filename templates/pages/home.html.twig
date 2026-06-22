@@ -144,7 +144,7 @@
         <!-- Cards Grid -->
         <div class="grid md:grid-cols-3 gap-8">
             {% for activite in activites %}
-            <a href="{{ path('app_activite_show', {id: activite.id}) }}" class="reveal card-hover group block bg-gradient-to-b from-[#140d05] to-[#0f0903] border border-amber-900/30 hover:border-amber-700/50 rounded-2xl overflow-hidden">
+            <a href="{{ path('app_activite_show_slug', {slug: activite.slug}) }}" class="reveal card-hover group block bg-gradient-to-b from-[#140d05] to-[#0f0903] border border-amber-900/30 hover:border-amber-700/50 rounded-2xl overflow-hidden">
 
                 <!-- Card Header -->
                 <div class="relative h-48 bg-gradient-to-br from-amber-900/40 via-orange-950/60 to-[#0f0903] flex items-center justify-center overflow-hidden">
@@ -273,7 +273,7 @@
 
         <div class="grid md:grid-cols-3 gap-6">
             {% for offre in offres %}
-            <a href="{{ path('app_offre_show', {id: offre.id}) }}" class="reveal card-hover group block bg-[#120c04] border border-amber-900/30 hover:border-orange-700/40 rounded-2xl p-6 transition-all">
+            <a href="{{ path('app_offre_show_slug', {slug: offre.slug}) }}" class="reveal card-hover group block bg-[#120c04] border border-amber-900/30 hover:border-orange-700/40 rounded-2xl p-6 transition-all">
                 <div class="flex items-start justify-between mb-5">
                     <div class="text-4xl">{{ offre.icon }}</div>
                     <span class="badge-{{ offre.statut }} text-xs font-semibold px-3 py-1 rounded-full">

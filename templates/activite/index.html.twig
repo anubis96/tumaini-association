@@ -45,14 +45,13 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="cards-grid">
             {% for activite in activites %}
             <div class="card-item" data-status="{{ activite.status }}">
-                <a href="{{ path('app_activite_show', {id: activite.id}) }}" class="reveal card-hover group block bg-gradient-to-b from-[#160e05] to-[#100a03] border border-amber-900/30 hover:border-amber-700/40 rounded-2xl overflow-hidden h-full">
+                <a href="{{ path('app_activite_show_slug', {slug: activite.slug}) }}" class="reveal card-hover group block bg-gradient-to-b from-[#160e05] to-[#100a03] border border-amber-900/30 hover:border-amber-700/40 rounded-2xl overflow-hidden h-full">
 
                     <!-- Header with icon -->
                     <div class="relative h-52 bg-gradient-to-br from-amber-900/30 via-orange-950/50 to-[#100a03] flex items-center justify-center">
-                        {# <div class="text-8xl group-hover:scale-110 transition-transform duration-500">{{ activite.image_icon }}</div> #}
                             {% if activite.image_url %}
                                 <img src="{{ activite.image_url }}" 
-                                    alt="{{ activite.titre }}" 
+                                    alt="{{ activite.titre }}"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-black/40"></div>
                                 <div class="absolute text-6xl opacity-80 group-hover:opacity-100 transition-opacity">
@@ -94,7 +93,7 @@
                             </div>
                             <div class="bg-amber-900/15 rounded-xl p-3">
                                 <div class="text-amber-600 text-xs mb-1">📅 Date</div>
-                                <div class="text-amber-300 text-xs font-medium">{{ activite.date }}</div>
+                                <div class="text-amber-300 text-xs font-medium">{{ activite.date | date('d/m/Y') }}</div>
                             </div>
                             <div class="bg-amber-900/15 rounded-xl p-3">
                                 <div class="text-amber-600 text-xs mb-1">🎯 Impact</div>

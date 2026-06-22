@@ -5,7 +5,6 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AssociationApiService
 {
@@ -92,6 +91,29 @@ class AssociationApiService
     }
 
     /**
+     * Récupère une activité par le SLUG
+     * @param string $slug
+     * @return array|null
+     */
+    public function getActivityBySlug(string $slug): ?array
+    {
+        try {
+            $response = $this->httpClient->request('GET', $this->baseUrl . '/activities/slug/' . $slug);
+            
+            if ($response->getStatusCode() !== Response::HTTP_OK) {
+                return null;
+            }
+            
+            $data = $response->toArray();
+            return $this->formatActivity($data);
+            
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+
+    /**
      * Récupère toutes les offres
      * @return array
      */
@@ -136,6 +158,29 @@ class AssociationApiService
             return null;
         }
     }
+
+    /**
+     * Récupère une offre par le SLUG
+     * @param string $slug
+     * @return array|null
+     */
+    public function getOfferBySlug(string $slug): ?array
+    {
+        try {
+            $response = $this->httpClient->request('GET', $this->baseUrl . '/offers/slug/' . $slug);
+            
+            if ($response->getStatusCode() !== Response::HTTP_OK) {
+                return null;
+            }
+            
+            $data = $response->toArray();
+            return $this->formatOffer($data);
+            
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
 
     /**
      * Récupère tous les membres
@@ -316,13 +361,14 @@ class AssociationApiService
             if (str_starts_with($data['imageUrl'], 'http')) {
                 $imageUrl = $data['imageUrl'];
             } else {
-                $imageUrl = $this->uploadsUrl . '/activities/' . $data['imageUrl'];
+                $imageUrl = $this->uploadsUrl . '/images/activities/' . $data['imageUrl'];
             }
         }
         
         return [
             'id' => $data['id'] ?? null,
             'titre' => $data['title'] ?? '',
+            'slug' => $data['slug'] ?? '',
             'description' => $data['description'] ?? '',
             'resume' => $data['resume'] ?? '',
             'date' => $data['date'] ?? '',
