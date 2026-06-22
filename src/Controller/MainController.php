@@ -54,7 +54,7 @@ class MainController extends AbstractController
     }
 
     // --- Activités ---
-    #[Route('/activites/{id}', name: 'app_activite_show', requirements: ['id' => '\d+'])]
+    #[Route('/activites/unique/{id}', name: 'app_activite_show', requirements: ['id' => '\d+'])]
     public function activiteShow(int $id): Response
     {
         $activite = $this->apiService->getActivityById($id);
@@ -74,7 +74,7 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/activites/slug/{slug}', name: 'app_activite_show_slug', requirements: ['slug' => '.+'])]
+    #[Route('/activites/{slug}', name: 'app_activite_show_slug', requirements: ['slug' => '.+'])]
     public function activiteShowSlug(string $slug): Response
     {
         $activite = $this->apiService->getActivityBySlug($slug);
