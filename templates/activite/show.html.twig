@@ -72,6 +72,62 @@
                     {{ activite.resume }}
                 </p>
             </div>
+            <div class="flex flex-wrap items-center gap-3">
+    <span class="text-amber-600 text-sm font-medium mr-1">Partager :</span>
+    
+    <!-- WhatsApp -->
+    <a href="https://wa.me/?text={{ (activite.titre ~ ' — ' ~ activite.resume ~ ' ' ~ app.request.uri)|url_encode }}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="share-btn share-btn-whatsapp w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5"
+       aria-label="Partager sur WhatsApp"
+       title="Partager sur WhatsApp">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+    
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri|url_encode }}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="share-btn share-btn-facebook w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5"
+       aria-label="Partager sur Facebook"
+       title="Partager sur Facebook">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+    </a>
+    
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/intent/tweet?text={{ (activite.titre ~ ' — ' ~ activite.resume)|url_encode }}&url={{ app.request.uri|url_encode }}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="share-btn share-btn-twitter w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5"
+       aria-label="Partager sur Twitter"
+       title="Partager sur Twitter/X">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+    </a>
+    
+    <!-- Copier le lien - CORRIGÉ -->
+    <button onclick="copyLink()"
+            id="copyButton"
+            class="share-btn-copy w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5 bg-amber-800/40 hover:bg-amber-700/60 text-amber-300 border border-amber-700/30 relative"
+            aria-label="Copier le lien"
+            title="Copier le lien"
+            type="button">
+        <!-- Icône de copie (par défaut) -->
+        <svg id="copyIcon" class="w-5 h-5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+        </svg>
+        <!-- Icône de confirmation (cachée par défaut) -->
+        <svg id="checkIcon" class="w-5 h-5 hidden transition-all duration-300 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+        </svg>
+    </button>
+</div>
             <!-- Big icon -->
             <div class="flex-shrink-0 w-36 h-36 rounded-3xl bg-gradient-to-br from-amber-900/40 to-orange-950/60 border border-amber-800/30 flex items-center justify-center text-8xl shadow-2xl shadow-amber-900/30 animate-float">
                 {{ activite.image_icon }}
@@ -189,5 +245,263 @@
     </div>
 </section>
 {% endif %}
+{% block extra_scripts %}
+{{ parent() }}
+    <script>
+    /**
+    * Fonction principale pour copier le lien
+    */
+    function copyLink() {
+        // Récupérer l'URL actuelle
+        const url = window.location.href;
+        
+        // Récupérer les éléments du DOM
+        const button = document.getElementById('copyButton');
+        const copyIcon = document.getElementById('copyIcon');
+        const checkIcon = document.getElementById('checkIcon');
+        
+        // Vérifier que les éléments existent
+        if (!button || !copyIcon || !checkIcon) {
+            console.error('Éléments de copie non trouvés');
+            return;
+        }
+        
+        // Tenter la copie avec l'API Clipboard moderne
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url)
+                .then(() => {
+                    // Succès - afficher le feedback
+                    showCopySuccess(button, copyIcon, checkIcon);
+                })
+                .catch((err) => {
+                    console.error('Erreur clipboard API:', err);
+                    // Fallback à la méthode traditionnelle
+                    fallbackCopyLink(url, button, copyIcon, checkIcon);
+                });
+        } else {
+            // API Clipboard non supportée
+            fallbackCopyLink(url, button, copyIcon, checkIcon);
+        }
+    }
 
+    /**
+    * Méthode de copie de secours (pour navigateurs anciens)
+    */
+    function fallbackCopyLink(text, button, copyIcon, checkIcon) {
+        // Créer un élément textarea temporaire
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '-9999px';
+        document.body.appendChild(textarea);
+        
+        // Sélectionner et copier
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        
+        try {
+            const success = document.execCommand('copy');
+            if (success) {
+                showCopySuccess(button, copyIcon, checkIcon);
+            } else {
+                showCopyError();
+            }
+        } catch (err) {
+            console.error('Erreur de copie:', err);
+            showCopyError();
+        }
+        
+        // Nettoyer
+        document.body.removeChild(textarea);
+    }
+
+    /**
+    * Afficher le feedback de succès
+    */
+    function showCopySuccess(button, copyIcon, checkIcon) {
+        // Changer les icônes
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        
+        // Ajouter l'effet visuel sur le bouton
+        button.classList.add('copied');
+        button.style.borderColor = '#10b981'; // Emeraude
+        button.style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
+        
+        // Afficher un toast de confirmation
+        showToast('✅ Lien copié !');
+        
+        // Revenir à l'état normal après 2.5 secondes
+        setTimeout(() => {
+            copyIcon.classList.remove('hidden');
+            checkIcon.classList.add('hidden');
+            button.classList.remove('copied');
+            button.style.borderColor = '';
+            button.style.backgroundColor = '';
+        }, 2500);
+    }
+
+    /**
+    * Afficher un message d'erreur
+    */
+    function showCopyError() {
+        showToast('❌ Impossible de copier le lien');
+    }
+
+    /**
+    * Afficher un toast (notification) élégant
+    */
+    function showToast(message) {
+        // Supprimer l'ancien toast s'il existe
+        const oldToast = document.querySelector('.toast-copy');
+        if (oldToast) {
+            oldToast.remove();
+        }
+        
+        // Créer le toast
+        const toast = document.createElement('div');
+        toast.className = 'toast-copy fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-amber-900/95 backdrop-blur-sm border border-amber-700/50 text-amber-200 px-6 py-3 rounded-xl shadow-2xl z-50 text-sm font-medium transition-all duration-300';
+        toast.textContent = message;
+        
+        // Style initial (invisible puis animation)
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%, 20px)';
+        document.body.appendChild(toast);
+        
+        // Forcer le reflow
+        toast.offsetHeight;
+        
+        // Animation d'entrée
+        toast.style.opacity = '1';
+        toast.style.transform = 'translate(-50%, 0)';
+        
+        // Supprimer le toast après 3 secondes
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translate(-50%, -20px)';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // Gestionnaire d'événement pour le clic sur le bouton
+    document.addEventListener('DOMContentLoaded', function() {
+        const copyButton = document.getElementById('copyButton');
+        if (copyButton) {
+            copyButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                copyLink();
+            });
+        }
+    });
+
+    // Support pour les navigateurs qui ne supportent pas les fonctions fléchées
+    // (fallback pour IE et anciens navigateurs)
+    if (typeof String.prototype.includes === 'undefined') {
+        String.prototype.includes = function(search, start) {
+            'use strict';
+            if (typeof start !== 'number') {
+                start = 0;
+            }
+            if (start + search.length > this.length) {
+                return false;
+            } else {
+                return this.indexOf(search, start) !== -1;
+            }
+        };
+    }
+    </script>
+
+    <style>
+    /* Styles pour les boutons de partage */
+    .share-btn-whatsapp {
+        background: #25D366;
+        color: white;
+    }
+    .share-btn-whatsapp:hover {
+        background: #128C7E;
+    }
+
+    .share-btn-facebook {
+        background: #1877F2;
+        color: white;
+    }
+    .share-btn-facebook:hover {
+        background: #0C63D4;
+    }
+
+    .share-btn-twitter {
+        background: #000000;
+        color: white;
+    }
+    .share-btn-twitter:hover {
+        background: #333333;
+    }
+
+    .share-btn-copy {
+        background: rgba(180, 83, 9, 0.3);
+        color: #fbbf24;
+        border: 1px solid rgba(180, 83, 9, 0.4);
+    }
+    .share-btn-copy:hover {
+        background: rgba(180, 83, 9, 0.5);
+        border-color: rgba(180, 83, 9, 0.6);
+    }
+    .share-btn-copy.copied {
+        background: rgba(16, 185, 129, 0.2);
+        border-color: #10b981;
+        color: #34d399;
+    }
+
+    /* Animation du toast */
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        to {
+            opacity: 0;
+            transform: translate(-50%, -20px);
+        }
+    }
+
+    .toast-copy {
+        animation: slideUp 0.3s ease-out forwards;
+    }
+
+    .toast-copy.removing {
+        animation: slideDown 0.3s ease-in forwards;
+    }
+
+    /* Effet de pulse sur le bouton copié */
+    @keyframes pulse-copy {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .share-btn-copy.copied {
+        animation: pulse-copy 0.5s ease 2;
+    }
+    </style>
+{% endblock %}
 {% endblock %}
