@@ -5,70 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/images/logo_asso.png">
     <title>{% block title %}MTU asbl — Mwanadamu Tumaini{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    primary: {
-                        50:  '#e8eef5',
-                        100: '#d1ddeb',
-                        200: '#a3bbd7',
-                        300: '#7599c3',
-                        400: '#4777af',
-                        500: '#1a2a4f',
-                        600: '#15223f',
-                        700: '#10192f',
-                        800: '#0a1120',
-                        900: '#050810',
-                    },
-                    secondary: {
-                        50:  '#eef3fa',
-                        100: '#dde7f5',
-                        200: '#bbcfeb',
-                        300: '#99b7e1',
-                        400: '#779fd7',
-                        500: '#2a4a7f',
-                        600: '#223b66',
-                        700: '#192c4c',
-                        800: '#111e33',
-                        900: '#080f1a',
-                    },
-                },
-                fontFamily: {
-                    display: ['Playfair Display', 'Georgia', 'serif'],
-                    body: ['DM Sans', 'sans-serif'],
-                    mono: ['JetBrains Mono', 'monospace'],
-                },
-                animation: {
-                    'fade-up': 'fadeUp 0.6s ease forwards',
-                    'slide-in': 'slideIn 0.5s ease forwards',
-                    'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
-                    'float': 'float 3s ease-in-out infinite',
-                },
-                keyframes: {
-                    fadeUp: {
-                        '0%': { opacity: '0', transform: 'translateY(30px)' },
-                        '100%': { opacity: '1', transform: 'translateY(0)' },
-                    },
-                    slideIn: {
-                        '0%': { opacity: '0', transform: 'translateX(-20px)' },
-                        '100%': { opacity: '1', transform: 'translateX(0)' },
-                    },
-                    pulseSoft: {
-                        '0%, 100%': { opacity: '1' },
-                        '50%': { opacity: '0.7' },
-                    },
-                    float: {
-                        '0%, 100%': { transform: 'translateY(0px)' },
-                        '50%': { transform: 'translateY(-8px)' },
-                    }
-                }
-            }
-        }
-    }
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -380,7 +316,70 @@
             </div>
         </div>
     </footer>
-
+<script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: {
+                        50:  '#e8eef5',
+                        100: '#d1ddeb',
+                        200: '#a3bbd7',
+                        300: '#7599c3',
+                        400: '#4777af',
+                        500: '#1a2a4f',
+                        600: '#15223f',
+                        700: '#10192f',
+                        800: '#0a1120',
+                        900: '#050810',
+                    },
+                    secondary: {
+                        50:  '#eef3fa',
+                        100: '#dde7f5',
+                        200: '#bbcfeb',
+                        300: '#99b7e1',
+                        400: '#779fd7',
+                        500: '#2a4a7f',
+                        600: '#223b66',
+                        700: '#192c4c',
+                        800: '#111e33',
+                        900: '#080f1a',
+                    },
+                },
+                fontFamily: {
+                    display: ['Playfair Display', 'Georgia', 'serif'],
+                    body: ['DM Sans', 'sans-serif'],
+                    mono: ['JetBrains Mono', 'monospace'],
+                },
+                animation: {
+                    'fade-up': 'fadeUp 0.6s ease forwards',
+                    'slide-in': 'slideIn 0.5s ease forwards',
+                    'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+                    'float': 'float 3s ease-in-out infinite',
+                },
+                keyframes: {
+                    fadeUp: {
+                        '0%': { opacity: '0', transform: 'translateY(30px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                    slideIn: {
+                        '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                        '100%': { opacity: '1', transform: 'translateX(0)' },
+                    },
+                    pulseSoft: {
+                        '0%, 100%': { opacity: '1' },
+                        '50%': { opacity: '0.7' },
+                    },
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0px)' },
+                        '50%': { transform: 'translateY(-8px)' },
+                    }
+                }
+            }
+        }
+    }
+    </script>
     <script>
     // Mobile menu toggle
     const toggle = document.getElementById('mobile-toggle');
