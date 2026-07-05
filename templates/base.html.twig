@@ -24,7 +24,7 @@
 
                 <!-- Logo -->
                 <a href="{{ path('app_home') }}" class="flex items-center gap-3 group">
-                    <div class="w-[60px] h-[60px] rounded-xl bg-gradient-to-br from-white to-primary-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary-900/40 group-hover:scale-105 transition-transform">
+                    <div class="w-[60px] h-[60px] rounded-xl bg-linear-to-br from-white to-primary-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary-900/40 group-hover:scale-105 transition-transform">
                         <img src="/images/logo_asso.png" >
                     </div>
                     <div class="hidden sm:block">
@@ -53,7 +53,7 @@
                     <a href="{{ path('app_about') }}" class="nav-link text-primary-200 hover:text-primary-300 text-sm font-medium transition-colors {% if app.request.get('_route') == 'app_about' %}active text-primary-300{% endif %}">
                         À propos
                     </a>
-                    <a href="{{ path('app_contact') }}" class="btn-shine bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white text-sm font-semibold px-5 py-2 rounded-lg shadow-lg shadow-primary-900/40 transition-all">
+                    <a href="{{ path('app_contact') }}" class="btn-shine bg-linear-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white text-sm font-semibold px-5 py-2 rounded-lg shadow-lg shadow-primary-900/40 transition-all">
                         Contact
                     </a>
                 </div>
@@ -78,7 +78,7 @@
                 <a href="{{ path('app_offres') }}" class="block px-3 py-2 text-primary-200 hover:text-primary-300 hover:bg-primary-800/50 rounded-lg transition-all text-sm">💼 Offres d'emploi</a>
                 <a href="{{ path('app_membres') }}" class="block px-3 py-2 text-primary-200 hover:text-primary-300 hover:bg-primary-800/50 rounded-lg transition-all text-sm">👥 Membres</a>
                 <a href="{{ path('app_about') }}" class="block px-3 py-2 text-primary-200 hover:text-primary-300 hover:bg-primary-800/50 rounded-lg transition-all text-sm">ℹ️ À propos</a>
-                <a href="{{ path('app_contact') }}" class="block px-3 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg text-sm font-semibold text-center mt-2">✉️ Contact</a>
+                <a href="{{ path('app_contact') }}" class="block px-3 py-2 bg-linear-to-r from-primary-500 to-primary-600 text-white rounded-lg text-sm font-semibold text-center mt-2">✉️ Contact</a>
             </div>
         </div>
     </nav>
@@ -95,7 +95,7 @@
                 <!-- Brand -->
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-[75px] h-[75px] rounded-xl bg-gradient-to-br from-white to-primary-600 flex items-center justify-center text-white font-bold shadow-lg">
+                        <div class="w-[75px] h-[75px] rounded-xl bg-linear-to-br from-white to-primary-600 flex items-center justify-center text-white font-bold shadow-lg">
                             <img src="/images/logo_asso.png" >
                         </div>
                         <div>
